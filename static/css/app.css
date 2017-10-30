@@ -1,0 +1,38 @@
+.content{
+    width: 100%;
+    height: auto;
+    min-height: 600px;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    padding-top: 20px;
+}
+.c-p{
+    height: 40px;
+    line-height: 40px;
+}
+.cp-span{
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    padding: 0 10px;
+    background-color: #eee;
+}
+.c-left{
+    text-align: left;
+    margin-left: 20px; 
+}
+.c-right{
+    text-align: right;
+    margin-right: 20px;
+}
+.avator{
+    height: 40px;
+    width: 40px;
+}
+.chatting{
+    text-align: center;
+}
+.chat-con{
+    min-width: 400px;
+}
