@@ -30,3 +30,5 @@ class websocket {
     }
 
 }
+
+new websocket();
