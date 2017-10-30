@@ -22,7 +22,7 @@ $ws->on('message', function ($ws, $frame) {
     // $ws->connections 遍历所有websocket连接用户的fd，给所有用户推送
     foreach ($ws->connections as $fd) {
         if ($frame->fd != $fd) {
-            $this->server->push($fd, json_encode($push_data));
+            $ws->push($fd, json_encode($push_data));
         }
     }
 });
