@@ -24,11 +24,11 @@
             websocket.onmessage = function (evt) {
                 if (!evt.data.match("^\{(.+:.+,*){1,}\}$")){
                     //普通字符串处理
-                    console.log(evt.data);
+                    var html_append = '<p class="c-p c-center">'+evt.data+'</p>';
+                    $('.content').append(html_append);
                 }else{
                     //通过这种方法可将字符串转换为对象
                     var retrieve_data = jQuery.parseJSON(evt.data);
-                    console.log(retrieve_data);
                     var html_append =  '<p class="c-p c-left"><img src="./static/images/2.jpg" class="avator"><span class="cp-span">'+retrieve_data.data+'</span></p>'
                     $('.content').append(html_append);
                 }
@@ -42,7 +42,7 @@
                 if (con) {
                     websocket.send(con);
                     $("#con").val("");
-                    var html_append = '<p class="c-p c-right"><span class="cp-span">'+con+'</span><img src="./static/images/2.jpg" class="avator"></p>'
+                    var html_append = '<p class="c-p c-right"><span class="cp-span">'+con+'</span><img src="./static/images/2.png" class="avator"></p>'
                     $(".content").append(html_append);
                 } else {
                     alert("输入格式有误");
@@ -55,14 +55,6 @@
         <div class="container">
             <div class="webim">
                 <div class="content">
-                    <p class="c-p c-left">
-                        <img src="./static/images/2.jpg" class="avator">
-                        <span class="cp-span">12312123创吧的把失败的</span>
-                    </p>
-                    <p class="c-p c-right">
-                        <span class="cp-span">12312123创吧的把失败的</span>
-                        <img src="./static/images/2.jpg" class="avator">
-                    </p>
                 </div>
                 <div class="chatting navbar-fixed-bottom">
                     <form class="form-inline">

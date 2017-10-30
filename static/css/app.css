@@ -26,6 +26,9 @@
     text-align: right;
     margin-right: 20px;
 }
+.c-center{
+    text-align: center;
+}
 .avator{
     height: 40px;
     width: 40px;

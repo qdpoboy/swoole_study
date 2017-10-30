@@ -9,7 +9,7 @@ $ws = new swoole_websocket_server("0.0.0.0", 9502);
 //监听WebSocket连接打开事件
 $ws->on('open', function ($ws, $request) {
     //var_dump($request->fd, $request->get, $request->server);
-    $ws->push($request->fd, "hello, welcome\n");
+    $ws->push($request->fd, "欢迎来到ICUGAME聊天室");
 });
 
 //监听WebSocket消息事件
