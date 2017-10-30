@@ -6,8 +6,9 @@
         <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">\
         <link href="./static/css/app.css" rel="stylesheet">
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+        <meta name="description" content="icugame聊天室，基于swoole的websocket聊天室">
+        <meta name="keywords" content="icugame聊天室">
+        <title>icugame聊天室</title>
     </head>
     <script>
         $(function () {
