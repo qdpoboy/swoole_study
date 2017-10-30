@@ -19,7 +19,12 @@ $ws->on('message', function ($ws, $frame) {
         'data' => $frame->data,
         'append' => 'add',
     ];
-    $ws->push($frame->fd, json_encode($push_data));
+    // $ws->connections 遍历所有websocket连接用户的fd，给所有用户推送
+    foreach ($ws->connections as $fd) {
+        if ($frame->fd != $fd) {
+            $this->server->push($fd, json_encode($push_data));
+        }
+    }
 });
 
 //监听WebSocket连接关闭事件

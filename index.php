@@ -22,9 +22,16 @@
             };
 
             websocket.onmessage = function (evt) {
-                var retrieve_data = evt.data;
-                console.log(retrieve_data);
-                var html_append =  '<p class="c-p c-left"><img src="./static/images/2.jpg" class="avator"><span class="cp-span">'++'</span></p>'
+                if (!evt.data.match("^\{(.+:.+,*){1,}\}$")){
+                    //普通字符串处理
+                    console.log(evt.data);
+                }else{
+                    //通过这种方法可将字符串转换为对象
+                    var retrieve_data = jQuery.parseJSON(evt.data);
+                    console.log(retrieve_data);
+                    var html_append =  '<p class="c-p c-left"><img src="./static/images/2.jpg" class="avator"><span class="cp-span">'+retrieve_data.data+'</span></p>'
+                    $('.content').append(html_append);
+                }
             };
 
             websocket.onerror = function (evt, e) {
