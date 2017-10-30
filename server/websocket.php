@@ -15,9 +15,11 @@ $ws->on('open', function ($ws, $request) {
 //监听WebSocket消息事件
 $ws->on('message', function ($ws, $frame) {
     //echo "Message: {$frame->data}\n";
-    var_dump($ws);
-    var_dump($frame);
-    $ws->push($frame->fd, "server: {$frame->data}");
+    $push_data = [
+        'data' => $frame->data,
+        'append' => 'add',
+    ];
+    $ws->push($frame->fd, json_encode($push_data));
 });
 
 //监听WebSocket连接关闭事件
