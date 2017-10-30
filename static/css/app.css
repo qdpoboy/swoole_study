@@ -1,10 +1,11 @@
 .content{
     width: 100%;
     height: auto;
-    min-height: 600px;
+    min-height: 500px;
     border-left: 1px solid #ccc;
     border-right: 1px solid #ccc;
     padding-top: 20px;
+    margin-bottom: 80px;
 }
 .c-p{
     height: 40px;

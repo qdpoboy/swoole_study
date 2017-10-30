@@ -31,6 +31,7 @@
                     var retrieve_data = jQuery.parseJSON(evt.data);
                     var html_append = '<p class="c-p c-left"><img src="./static/images/2.jpg" class="avator"><span class="cp-span">' + retrieve_data.data + '</span></p>'
                     $('.content').append(html_append);
+                    $(window).scrollTop($(window).height()); 
                 }
             };
 
@@ -52,6 +53,7 @@
                     $("#con").val("");
                     var html_append = '<p class="c-p c-right"><span class="cp-span">' + con + '</span><img src="./static/images/2.png" class="avator"></p>'
                     $(".content").append(html_append);
+                    $(window).scrollTop($(window).height()); 
                 } else {
                     alert("输入格式有误");
                 }
@@ -68,7 +70,7 @@
                     <form class="form-inline" onsubmit="return false;">
                         <div class="form-group">
                             <label for="con">输入框：</label>
-                            <input type="text" class="form-control chat-con" id="con" placeholder="请在此输入聊天内容">
+                            <input type="text" class="form-control chat-con" id="con" placeholder="请在此输入聊天内容，回车即可发送。">
                         </div>
                         <button type="button" class="btn btn-primary" id="send">发送</button>
                     </form>
