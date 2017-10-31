@@ -42,3 +42,16 @@
 .chat-con{
     min-width: 400px;
 }
+.login{
+    width: 500px;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 500px;
+}
+.nickname{
+    border: none;
+    text-align: center;
+    border-bottom: 1px solid #ccc;
+    font-size: 2rem;
+    outline: none;
+}

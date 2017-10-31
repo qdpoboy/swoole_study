@@ -1,9 +1,11 @@
-<?php ?>
+<?php 
+if(isset($_COOKIE['nick'])){
+?>
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">\
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
         <link href="./static/css/app.css" rel="stylesheet">
         <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -120,6 +122,7 @@
                 <div class="content">
                 </div>
                 <div class="chatting navbar-fixed-bottom">
+                    <input type="text" name="nickname" id="nickname" class="nickname" placeholder="请输入昵称">
                     <form class="form-inline" onsubmit="return false;">
                         <div class="form-group">
                             <label for="con">输入框：</label>
@@ -132,3 +135,29 @@
         </div>
     </body>
 </html>
+<?php
+}else{
+?>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" rel="stylesheet">
+        <link href="./static/css/app.css" rel="stylesheet">
+        <script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <meta name="description" content="icugame聊天室，基于swoole的websocket聊天室">
+        <meta name="keywords" content="icugame聊天室">
+        <title>icugame聊天室</title>
+    </head>
+    <body>
+        <div class="container">
+            <div class="login">
+                <input type="text" name="nickname" id="nickname" class="nickname" placeholder="请输入昵称">
+            </div>
+        </div>
+    </body>
+</html>
+<?php
+}
+?>
