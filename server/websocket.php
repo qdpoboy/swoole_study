@@ -19,6 +19,7 @@ $ws->on('message', function ($ws, $frame) {
     $push_data = [
         'data' => urlToLink($frame->data),
         'append' => 'add',
+        'type' => 'text',
     ];
     // $ws->connections 遍历所有websocket连接用户的fd，给所有用户推送
     foreach ($ws->connections as $fd) {
