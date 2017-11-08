@@ -1,1 +1,6 @@
 /nbproject/
+/tests
+/vendor
+/cache
+/doc
+/examples
