@@ -149,6 +149,20 @@ if(isset($_COOKIE['nick'])){
         <meta name="description" content="icugame聊天室，基于swoole的websocket聊天室">
         <meta name="keywords" content="icugame聊天室">
         <title>icugame聊天室</title>
+        <script>
+            $(function () {
+                $("#nickname").keydown(function (event) {
+                    if (event.keyCode == 13) {
+                        var nickname = $(this).val();
+                        if(nickname){
+                            
+                        }else{
+                            alert("昵称不能为空!");
+                        }
+                    }
+                });
+            });
+        </script>
     </head>
     <body>
         <div class="container">
