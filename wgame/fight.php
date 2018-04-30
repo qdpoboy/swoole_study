@@ -8,32 +8,32 @@
 
 class fight {
 
-    function run($ws) {
-        $m1 = $this->map1($ws);
+    function run($ws, $frame) {
+        $m1 = $this->map1($ws, $frame);
         if ($m1) {
-            $m2 = $this->map2($ws);
+            $m2 = $this->map2($ws, $frame);
             if ($m2) {
                 return 1;
             }
         }
     }
 
-    function map1($ws) {
-        $ws->push('张三进入到地图1');
-        $ws->push('张三遇到了 小狐狸1');
-        $ws->push('张三遇到了 小狐狸2');
-        $ws->push('张三遇到了 小狐狸3');
-        $ws->push('张三遇到了 小狐狸4');
-        $ws->push('张三遇到了 小狐狸5');
+    function map1($ws, $frame) {
+        $ws->push($frame->fd, '张三进入到地图1');
+        $ws->push($frame->fd, '张三遇到了 小狐狸1');
+        $ws->push($frame->fd, '张三遇到了 小狐狸2');
+        $ws->push($frame->fd, '张三遇到了 小狐狸3');
+        $ws->push($frame->fd, '张三遇到了 小狐狸4');
+        $ws->push($frame->fd, '张三遇到了 小狐狸5');
         return 1;
     }
 
-    function map2($ws) {
-        $ws->push('张三进入到地图2');
-        $ws->push('张三遇到了 大狐狸2');
-        $ws->push('张三遇到了 大狐狸3');
-        $ws->push('张三遇到了 大狐狸4');
-        $ws->push('张三遇到了 大狐狸5');
+    function map2($ws, $frame) {
+        $ws->push($frame->fd, '张三进入到地图2');
+        $ws->push($frame->fd, '张三遇到了 大狐狸2');
+        $ws->push($frame->fd, '张三遇到了 大狐狸3');
+        $ws->push($frame->fd, '张三遇到了 大狐狸4');
+        $ws->push($frame->fd, '张三遇到了 大狐狸5');
         return 1;
     }
 

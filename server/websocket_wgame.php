@@ -21,7 +21,7 @@ $ws->on('message', function ($ws, $frame) {
     $control = $get_data['c'];
     include_once '../wgame/' . $model . '.php';
     $obj = new $model();
-    $obj->$control($ws);
+    $obj->$control($ws, $frame);
     //$push_data = [
         //'data' => urlToLink($frame->data),
         //'append' => 'add',
