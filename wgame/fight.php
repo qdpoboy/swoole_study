@@ -20,10 +20,15 @@ class fight {
 
     function map1($ws, $frame) {
         $ws->push($frame->fd, '张三进入到地图1');
+        usleep(100000);
         $ws->push($frame->fd, '张三遇到了 小狐狸1');
+        usleep(200000);
         $ws->push($frame->fd, '张三遇到了 小狐狸2');
+        usleep(300000);
         $ws->push($frame->fd, '张三遇到了 小狐狸3');
+        usleep(400000);
         $ws->push($frame->fd, '张三遇到了 小狐狸4');
+        usleep(500000);
         $ws->push($frame->fd, '张三遇到了 小狐狸5');
         return 1;
     }
