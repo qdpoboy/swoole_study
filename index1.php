@@ -11,7 +11,7 @@ if(isset($_COOKIE['nick'])){
         <script src="https://cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <meta name="description" content="icugame聊天室，基于swoole的websocket聊天室">
         <meta name="keywords" content="icugame聊天室">
-        <title>icugame聊天室1</title>
+        <title>icugame聊天室</title>
     </head>
     <script>
         $(function () {
