@@ -16,8 +16,11 @@ $ws->on('open', function ($ws, $request) {
 //监听WebSocket消息事件
 $ws->on('message', function ($ws, $frame) {
     //echo "Message: {$frame->data}\n";
-    echo "Message: " . gettype($frame->data) . "\n";
-    var_dump(json_decode($frame->data, true));
+    $get_data = json_decode($frame->data, true);
+    $model = $get_data['m'];
+    $control = $get_data['c'];
+    include_once '../wgame/' . $model . '.php';
+    $control($ws);
     //$push_data = [
         //'data' => urlToLink($frame->data),
         //'append' => 'add',
