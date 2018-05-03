@@ -4,6 +4,10 @@
  * websocket server
  * @author wxj
  */
+define('DEBUG', 'on');
+define("WEBPATH", str_replace("\\", "/", __DIR__));
+require __DIR__ . '/libs/lib_config.php';
+
 class wwebsocket {
 
     const PORT = 9502;
@@ -29,16 +33,18 @@ class wwebsocket {
 
     public function open($ws, $request) {
         echo "client-{$request->fd} is open\n";
-        var_dump($request);
+        //var_dump($request);
     }
 
     public function message($ws, $frame) {
         $get_data = json_decode($frame->data, true);
-        $model = $get_data['m'];
-        $control = $get_data['c'];
-        include_once '../wgame/' . $model . '.php';
-        $obj = new $model();
-        $obj->$control($ws, $frame);
+//        $model = $get_data['m'];
+//        $control = $get_data['c'];
+//        include_once '../wgame/' . $model . '.php';
+//        $obj = new $model();
+//        $obj->$control($ws, $frame);
+        $response = Swoole::$php->runMVC();
+        $this->ws->push($frame, $response);
     }
 
     public function close($ws, $fd) {
