@@ -22,6 +22,8 @@ class wwebsocket {
         $this->ws->on('open', [$this, 'open']);
         $this->ws->on('message', [$this, 'message']);
         $this->ws->on('close', [$this, 'close']);
+        $this->ws->on('task', [$this, 'task']);
+        $this->ws->on('finish', [$this, 'finish']);
         $this->ws->start();
     }
 
@@ -43,5 +45,14 @@ class wwebsocket {
         echo "client-{$fd} is closed\n";
     }
 
+    public function task() {
+        
+    }
+
+    public function finish() {
+        
+    }
+
 }
+
 new wwebsocket();
