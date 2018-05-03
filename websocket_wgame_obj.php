@@ -28,7 +28,7 @@ class wwebsocket {
         ];
         $this->ws = new swoole_websocket_server("0.0.0.0", self::PORT);
         $this->ws->set([
-            'task_worker_num' => 4
+            'task_worker_num' => 1
         ]);
         $this->ws->on('open', [$this, 'open']);
         $this->ws->on('message', [$this, 'message']);
@@ -45,8 +45,8 @@ class wwebsocket {
 
     public function message($ws, $frame) {
         $this->frame = $frame;
-        print_r($ws);
-        exit();
+        print_r($this->ws->connections);
+        die();
         Swoole::$php->router(array($this, 'router'));
         Swoole::$php->runMVC();
         //$response = Swoole::$php->runMVC();
