@@ -18,6 +18,11 @@ class Page extends Swoole\Controller
         $this->trace('Hello', 'World');
         return $this->showTrace(true);
     }
+    
+    function ws()
+    {
+        return 'page-ws';
+    }
 
     function detail()
     {

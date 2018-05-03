@@ -50,7 +50,7 @@ class wwebsocket {
     
     public function router() {
         $mvc['controller'] = 'page';
-        $mvc['view'] = 'index';
+        $mvc['view'] = 'ws';
         return $mvc;
     }
 
