@@ -15,6 +15,7 @@ class wwebsocket {
     const PORT = 9502;
 
     private $ws;
+    private $frame;
     private $actions;
 
     public function __construct() {
@@ -43,14 +44,15 @@ class wwebsocket {
     }
 
     public function message($ws, $frame) {
-        Swoole::$php->router(array($this, 'router'), $ws, $frame);
+        $this->frame = $frame;
+        Swoole::$php->router(array($this, 'router'));
         Swoole::$php->runMVC();
         //$response = Swoole::$php->runMVC();
         //$this->ws->push($frame->fd, $response);
     }
 
-    public function router($ws, $frame) {
-        $get_data = json_decode($frame->data, true);
+    public function router() {
+        $get_data = json_decode($this->frame->data, true);
         $controller = $this->actions[$get_data['c']];
         if ($controller) {
             $mvc['controller'] = $get_data['c'];
@@ -59,8 +61,8 @@ class wwebsocket {
             }
         }
         $mvc['param'] = [
-            'ws' => $ws,
-            'frame' => $frame,
+            'ws' => $this->ws,
+            'frame' => $this->frame,
         ];
         return $mvc;
     }
