@@ -43,9 +43,15 @@ class wwebsocket {
 //        include_once '../wgame/' . $model . '.php';
 //        $obj = new $model();
 //        $obj->$control($ws, $frame);
-        Swoole::$php->router(array('page', 'index'));
+        Swoole::$php->router(array($this, 'router'));
         $response = Swoole::$php->runMVC();
         $this->ws->push($frame->fd, $response);
+    }
+    
+    public function router() {
+        $mvc['controller'] = 'page';
+        $mvc['view'] = 'index';
+        return $mvc;
     }
 
     public function close($ws, $fd) {
