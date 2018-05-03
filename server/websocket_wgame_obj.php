@@ -5,6 +5,7 @@
  * @author wxj
  */
 define('DEBUG', 'on');
+define('SWOOLE_SERVER', true);
 define("WEBPATH", str_replace("\\", "/", __DIR__));
 require __DIR__ . '/libs/lib_config.php';
 
