@@ -22,7 +22,11 @@ class Fight extends Swoole\Controller {
     }
 
     private function send($msg, $mtime = 500000) {
-        var_dump($this->ws->exist($this->frame->fd));
+        //var_dump($this->ws->exist($this->frame->fd));
+        foreach ($this->ws->connections as $clid => $info) {
+            var_dump($clid);
+            var_dump($info);
+        }
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
             usleep($mtime);
