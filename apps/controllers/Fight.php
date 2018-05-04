@@ -29,7 +29,7 @@ class Fight extends Swoole\Controller {
         }
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
-            usleep($mtime);
+            //usleep($mtime);
         } else {
             return 1;
         }
