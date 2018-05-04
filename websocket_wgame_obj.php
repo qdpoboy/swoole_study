@@ -28,7 +28,9 @@ class wwebsocket {
         ];
         $this->ws = new swoole_websocket_server("0.0.0.0", self::PORT);
         $this->ws->set([
-            'task_worker_num' => 1
+            'task_worker_num' => 1,
+            'heartbeat_idle_time' => 600,
+            'heartbeat_check_interval' => 60,
         ]);
         $this->ws->on('open', [$this, 'open']);
         $this->ws->on('message', [$this, 'message']);
