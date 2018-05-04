@@ -16,9 +16,18 @@ class Fight extends Swoole\Controller {
         parent::__construct($swoole);
     }
 
-    public function vinit($param) {
+    private function vinit($param) {
         $this->frame = $param['frame'];
         $this->ws = $param['ws'];
+    }
+
+    private function send($msg, $mtime = 500000) {
+        if ($this->ws->exist($this->frame->fd)) {
+            $this->ws->push($this->frame->fd, $msg);
+            usleep($mtime);
+        } else {
+            return 1;
+        }
     }
 
     public function run($param) {
@@ -35,30 +44,25 @@ class Fight extends Swoole\Controller {
     }
 
     public function map1() {
-        $this->ws->push($this->frame->fd, '张三进入到地图1');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 小狐狸1');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 小狐狸2');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 小狐狸3');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 小狐狸4');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 小狐狸5');
+        $this->send('张三进入到地图1');
+        $this->send('张三遇到了 小狐狸1');
+        $this->send('张三遇到了 小狐狸2');
+        $this->send('张三遇到了 小狐狸3');
+        $this->send('张三遇到了 小狐狸4');
+        $this->send('张三遇到了 小狐狸5');
+        $this->send('张三遇到了 小狐狸6');
         return 1;
     }
 
     public function map2() {
-        $this->ws->push($this->frame->fd, '张三进入到地图2');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 大狐狸2');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 大狐狸3');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 大狐狸4');
-        usleep(500000);
-        $this->ws->push($this->frame->fd, '张三遇到了 大狐狸5');
+        $this->send('张三进入到地图2');
+        $this->send('张三遇到了 大狐狸1');
+        $this->send('张三遇到了 大狐狸2');
+        $this->send('张三遇到了 大狐狸3');
+        $this->send('张三遇到了 大狐狸4');
+        $this->send('张三遇到了 大狐狸5');
+        $this->send('张三遇到了 大狐狸6');
+        $this->send('张三遇到了 大狐狸7');
         return 1;
     }
 
