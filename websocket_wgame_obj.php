@@ -45,12 +45,8 @@ class wwebsocket {
 
     public function message($ws, $frame) {
         $this->frame = $frame;
-        foreach($this->ws->connections as $fd){
-            var_dump($fd);
-        }
-        var_dump(get_object_vars($this->ws->connections));
-        //Swoole::$php->router(array($this, 'router'));
-        //Swoole::$php->runMVC();
+        Swoole::$php->router(array($this, 'router'));
+        Swoole::$php->runMVC();
         //$response = Swoole::$php->runMVC();
         //$this->ws->push($frame->fd, $response);
     }
