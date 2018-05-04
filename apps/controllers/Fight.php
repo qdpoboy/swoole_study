@@ -22,6 +22,7 @@ class Fight extends Swoole\Controller {
     }
 
     private function send($msg, $mtime = 500000) {
+        var_dump($this->ws->exist($this->frame->fd));
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
             usleep($mtime);
