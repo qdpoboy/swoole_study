@@ -28,7 +28,7 @@ class Fight extends Swoole\Controller {
             usleep($mtime);
             $this->i++;
             if ($this->i > 50) {
-                $this->ws->close($this->frame->fd);
+                $this->ws->close($this->ws, $this->frame->fd);
             }
         } else {
             return 1;
