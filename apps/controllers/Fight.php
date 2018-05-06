@@ -13,7 +13,7 @@ class Fight extends Swoole\Controller {
     private $ws;
 
     public function __construct($swoole) {
-        $i = 1;
+        $this->i = 1;
         parent::__construct($swoole);
     }
 
