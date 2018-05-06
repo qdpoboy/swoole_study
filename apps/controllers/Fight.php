@@ -13,6 +13,7 @@ class Fight extends Swoole\Controller {
     private $ws;
 
     public function __construct($swoole) {
+        $i = 1;
         parent::__construct($swoole);
     }
 
@@ -25,6 +26,10 @@ class Fight extends Swoole\Controller {
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
             usleep($mtime);
+            $this->i++;
+            if ($this->i > 50) {
+                $this->ws->close($this->frame->fd);
+            }
         } else {
             return 1;
         }
