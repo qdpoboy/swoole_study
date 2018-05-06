@@ -29,8 +29,8 @@ class wwebsocket {
         $this->ws = new swoole_websocket_server("0.0.0.0", self::PORT);
         $this->ws->set([
             'task_worker_num' => 1,
-            'heartbeat_idle_time' => 10,
-            'heartbeat_check_interval' => 5,
+            'heartbeat_idle_time' => 3,
+            'heartbeat_check_interval' => 1,
         ]);
         //check_interval可以不设置，但是idle_time必须设置，假设链接的信息包里有一个属性idle用来判断链接是否在线（0在线/1不在线），在链接连上来的时候idle为0，从链接最后一次开始算起，如果在idle_time时间里没有向服务器发送数据，则idle的状态改为1。
         //check_interval一直在轮循，每次轮循的时候都查看一下idle的值，如果某个链接的值为1则断掉链接。
