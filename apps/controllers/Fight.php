@@ -59,7 +59,8 @@ class Fight extends Swoole\Controller {
     }
 
     private function do_fight() {
-        $monsters_arr = $this->db->query("select * from w_monster where map_id = " . $this->mapinfo['id']);
+        $result = $this->db->query("select * from w_monster where map_id = " . $this->mapinfo['id']);
+        $monsters_arr = $result->fetchall();
         $one_monster = $monsters_arr[array_rand($monsters_arr)];
         $this->send($this->userinfo['nickname'] . '遇到了' . $one_monster['name']);
     }
