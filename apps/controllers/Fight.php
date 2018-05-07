@@ -11,6 +11,8 @@ class Fight extends Swoole\Controller {
 
     private $frame;
     private $ws;
+    private $userinfo;
+    private $mapinfo;
 
     public function __construct($swoole) {
         parent::__construct($swoole);
@@ -19,6 +21,19 @@ class Fight extends Swoole\Controller {
     private function vinit($param) {
         $this->frame = $param['frame'];
         $this->ws = $param['ws'];
+        $this->init_user();
+        $this->init_map();
+    }
+
+    private function init_user() {
+        $user_arr = $this->db->query("select * from w_user where id = 1");
+        $this->userinfo = $user_arr[0];
+    }
+
+    private function init_map() {
+        $maps_arr = $this->db->query("select * from w_map where level_l >= " . $this->userinfo['level'] . " and level_h <= " . $this->userinfo['level']);
+        $this->mapinfo = $maps_arr[array_rand($maps_arr)];
+        $this->send($this->userinfo['nickname'] . '进入到' . $this->mapinfo['name']);
     }
 
     private function send($msg, $mtime = 500000) {
@@ -36,36 +51,15 @@ class Fight extends Swoole\Controller {
         if ($param && !$this->frame && !$this->ws) {
             $this->vinit($param);
         }
-        $m1 = $this->map1();
-        if ($m1) {
-            $m2 = $this->map2();
-            if ($m2) {
-                $this->run([]);
-            }
+        for($i = 0;$i < 100;$i++){
+            $this->do_fight();
         }
     }
 
-    public function map1() {
-        $this->send('张三进入到地图1');
-        $this->send('张三遇到了 小狐狸1');
-        $this->send('张三遇到了 小狐狸2');
-        $this->send('张三遇到了 小狐狸3');
-        $this->send('张三遇到了 小狐狸4');
-        $this->send('张三遇到了 小狐狸5');
-        $this->send('张三遇到了 小狐狸6');
-        return 1;
-    }
-
-    public function map2() {
-        $this->send('张三进入到地图2');
-        $this->send('张三遇到了 大狐狸1');
-        $this->send('张三遇到了 大狐狸2');
-        $this->send('张三遇到了 大狐狸3');
-        $this->send('张三遇到了 大狐狸4');
-        $this->send('张三遇到了 大狐狸5');
-        $this->send('张三遇到了 大狐狸6');
-        $this->send('张三遇到了 大狐狸7');
-        return 1;
+    private function do_fight() {
+        $monsters_arr = $this->db->query("select * from w_monster where map_id = " . $this->mapinfo['id']);
+        $one_monster = $monsters_arr[array_rand($monsters_arr)];
+        $this->send($this->userinfo['nickname'] . '遇到了' . $one_monster['name']);
     }
 
 }
