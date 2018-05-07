@@ -26,12 +26,14 @@ class Fight extends Swoole\Controller {
     }
 
     private function init_user() {
-        $user_arr = $this->db->query("select * from w_user where id = 1");
-        $this->userinfo = $user_arr[0];
+        $result = $this->db->query("select * from w_user where id = 1");
+        $user_arr = $result->fetch();
+        $this->userinfo = $user_arr;
     }
 
     private function init_map() {
-        $maps_arr = $this->db->query("select * from w_map where level_l >= " . $this->userinfo['level'] . " and level_h <= " . $this->userinfo['level']);
+        $result = $this->db->query("select * from w_map where level_l <= " . $this->userinfo['level'] . " and level_h >= " . $this->userinfo['level']);
+        $maps_arr = $result->fetchall();
         $this->mapinfo = $maps_arr[array_rand($maps_arr)];
         $this->send($this->userinfo['nickname'] . '进入到' . $this->mapinfo['name']);
     }
@@ -51,7 +53,7 @@ class Fight extends Swoole\Controller {
         if ($param && !$this->frame && !$this->ws) {
             $this->vinit($param);
         }
-        for($i = 0;$i < 100;$i++){
+        for ($i = 0; $i < 100; $i++) {
             $this->do_fight();
         }
     }
