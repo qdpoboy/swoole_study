@@ -25,6 +25,8 @@ class Fight extends Swoole\Controller {
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
             usleep($mtime);
+            $closeFdArr = $this->ws->heartbeat();
+            var_dump($closeFdArr);
         } else {
             return 1;
         }
