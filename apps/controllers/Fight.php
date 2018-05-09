@@ -68,7 +68,14 @@ class Fight extends Swoole\Controller {
     }
 
     private function do_fight() {
-        $hp = $this->monsterinfo['hp'];
+        $m_hp = $this->monsterinfo['hp'];
+        $u_hp = $this->userinfo['hp'];
+        if ($u_hp > 0) {
+            $this->send($this->userinfo['nickname'] . ' 被 ' . $this->monsterinfo['name'] . '打败了');
+        } else {
+            $this->send($this->userinfo['nickname'] . ' 被 ' . $this->monsterinfo['name'] . '打败了');
+            return 1;
+        }
     }
 
 }
