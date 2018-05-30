@@ -60,16 +60,17 @@ class wwebsocket {
 
     public function router() {
         $get_data = json_decode($this->frame->data, true);
-        $controller = $this->actions[$get_data['c']];
-        if ($controller) {
+        $controller_views = $this->actions[$get_data['c']];
+        if ($controller_views) {
             $mvc['controller'] = $get_data['c'];
-            if (in_array($get_data['v'], $controller)) {
+            if (in_array($get_data['v'], $controller_views)) {
                 $mvc['view'] = $get_data['v'];
             }
         }
         $mvc['param'] = [
             'ws' => $this->ws,
             'frame' => $this->frame,
+            'data' => $get_data['data'],
         ];
         return $mvc;
     }
