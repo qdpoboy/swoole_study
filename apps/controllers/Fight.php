@@ -14,6 +14,7 @@ class Fight extends Swoole\Controller {
     private $userinfo;
     private $mapinfo;
     private $monsterinfo;
+    private $goodsinfo;
 
     public function __construct($swoole) {
         parent::__construct($swoole);
@@ -25,6 +26,7 @@ class Fight extends Swoole\Controller {
         $this->init_user();
         $this->init_map();
         $this->init_monster();
+        $this->init_goods();
     }
 
     private function init_user() {
@@ -45,6 +47,13 @@ class Fight extends Swoole\Controller {
         $monsters_arr = $result->fetchall();
         $this->monsterinfo = $monsters_arr[array_rand($monsters_arr)];
         $this->send($this->userinfo['nickname'] . ' 遇到了 ' . $this->monsterinfo['name']);
+    }
+    
+    private function init_goods() {
+        $result = $this->db->query("select * from w_goods where mon_id = " . $this->monsterinfo['id']);
+        $goods_arr = $result->fetchall();
+        $this->goodsinfo = $goods_arr[array_rand($goods_arr)];
+        $this->send($this->userinfo['nickname'] . ' 获得了 ' . $this->goodsinfo['name']);
     }
 
     private function send($msg, $mtime = 500000) {
