@@ -15,6 +15,8 @@ class Fight extends Swoole\Controller {
     private $mapinfo;
     private $monsterinfo;
     private $goodsinfo;
+    private $rand_min = 1;
+    private $rand_max = 1000;
 
     public function __construct($swoole) {
         parent::__construct($swoole);
@@ -25,7 +27,7 @@ class Fight extends Swoole\Controller {
         $this->ws = $param['ws'];
         $data = $param['data'];
         $this->init_user();
-        if ($data['map']) {
+        if (isset($data['map']) && $data['map']) {
             $this->init_map($data['map']);
         } else {
             $this->init_map();
@@ -54,9 +56,10 @@ class Fight extends Swoole\Controller {
     }
 
     private function init_monster() {
-        $result = $this->db->query("select * from w_monster where map_id = " . $this->mapinfo['id']);
-        $monsters_arr = $result->fetchall();
-        $this->monsterinfo = $monsters_arr[array_rand($monsters_arr)];
+        $rand = rand($this->rand_min, $this->rand_max);
+        $result = $this->db->query("select * from w_monster where map_id = " . $this->mapinfo['id'] . " and probability_l <= {$rand} and probability_h >= {$rand}");
+        $monster_arr = $result->fetch();
+        $this->monsterinfo = $monster_arr;
         $this->send($this->userinfo['nickname'] . ' 遇到了 ' . $this->monsterinfo['name']);
     }
     
