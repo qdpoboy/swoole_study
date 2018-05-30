@@ -61,6 +61,7 @@ class wwebsocket {
         $mvc['param'] = [
             'ws' => $ws,
             'frame' => $frame,
+            'data' => $get_data['data'],
         ];
         return $mvc;
     }

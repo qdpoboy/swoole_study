@@ -23,8 +23,13 @@ class Fight extends Swoole\Controller {
     private function vinit($param) {
         $this->frame = $param['frame'];
         $this->ws = $param['ws'];
+        $data = $param['data'];
         $this->init_user();
-        $this->init_map();
+        if ($data['map']) {
+            $this->init_map($data['map']);
+        } else {
+            $this->init_map();
+        }
         $this->init_monster();
         $this->init_goods();
     }
@@ -35,11 +40,17 @@ class Fight extends Swoole\Controller {
         $this->userinfo = $user_arr;
     }
 
-    private function init_map() {
-        $result = $this->db->query("select * from w_map where level_l <= " . $this->userinfo['level'] . " and level_h >= " . $this->userinfo['level']);
-        $maps_arr = $result->fetchall();
-        $this->mapinfo = $maps_arr[array_rand($maps_arr)];
-        $this->send($this->userinfo['nickname'] . ' 进入到 ' . $this->mapinfo['name']);
+    private function init_map($map_id = 0) {
+        if ($map_id) {
+            $result = $this->db->query("select * from w_map where id = " . $map_id);
+            $map_arr = $result->fetch();
+            $this->mapinfo = $map_arr;
+        } else {
+            $result = $this->db->query("select * from w_map where level_l <= " . $this->userinfo['level'] . " and level_h >= " . $this->userinfo['level']);
+            $maps_arr = $result->fetchall();
+            $this->mapinfo = $maps_arr[array_rand($maps_arr)];
+            $this->send($this->userinfo['nickname'] . ' 进入到 ' . $this->mapinfo['name']);
+        }
     }
 
     private function init_monster() {
@@ -54,13 +65,25 @@ class Fight extends Swoole\Controller {
         $goods_arr = $result->fetchall();
         $this->goodsinfo = $goods_arr[array_rand($goods_arr)];
         $this->send($this->userinfo['nickname'] . ' 获得了 ' . $this->goodsinfo['name']);
-        $this->send('结束一轮战斗');
+        $end_msg = [
+            'type' => 'end',
+            'map' => $this->mapinfo['id'],
+            'msg' => '结束一轮战斗',
+        ];
+        $this->send($end_msg);
         return 1;
     }
 
     private function send($msg, $mtime = 500000) {
         if ($this->ws->exist($this->frame->fd)) {
-            $this->ws->push($this->frame->fd, $msg);
+            if (is_array($msg)) {
+                $msg_obj = json_encode($msg);
+            } else {
+                $msg_arr['type'] = 'text';
+                $msg_arr['msg'] = $msg;
+                $msg_obj = json_encode($msg_arr);
+            }
+            $this->ws->push($this->frame->fd, $msg_obj);
             usleep($mtime);
             //$closeFdArr = $this->ws->heartbeat();
             //var_dump($closeFdArr);
