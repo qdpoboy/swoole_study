@@ -54,14 +54,16 @@ class Fight extends Swoole\Controller {
         $goods_arr = $result->fetchall();
         $this->goodsinfo = $goods_arr[array_rand($goods_arr)];
         $this->send($this->userinfo['nickname'] . ' 获得了 ' . $this->goodsinfo['name']);
+        $this->send('结束一轮战斗');
+        return 1;
     }
 
     private function send($msg, $mtime = 500000) {
         if ($this->ws->exist($this->frame->fd)) {
             $this->ws->push($this->frame->fd, $msg);
             usleep($mtime);
-            $closeFdArr = $this->ws->heartbeat();
-            var_dump($closeFdArr);
+            //$closeFdArr = $this->ws->heartbeat();
+            //var_dump($closeFdArr);
         } else {
             return 1;
         }
@@ -70,9 +72,6 @@ class Fight extends Swoole\Controller {
     public function run($param) {
         if ($param && !$this->frame && !$this->ws) {
             $this->vinit($param);
-        }
-        for ($i = 0; $i < 100; $i++) {
-            $this->do_fight();
         }
     }
 
